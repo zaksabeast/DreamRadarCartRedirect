@@ -5,6 +5,7 @@ readTWLSaveData:                                      ; patch to redirect to rea
   b readSDSaveFile
 
 readCartId:                                           ; patch to set cart Id for app as IRDO (white 2 ID) - located at 0x13dcf4
+                                                      ; this isn't the true readCartId by itself - below shows the locations to patch within readCartId 
   b LAB_0013de00                                      ; skip checks - located at 0x13dd28
   mov result,#0x49                                    ; ascii I - located at 0x13de00
   mov result,#0x52                                    ; ascii R - located at 0x13de08
