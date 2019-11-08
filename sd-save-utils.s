@@ -40,7 +40,7 @@ checkIfSDSaveFileExists:
   bl openSDSaveFile                                    ; store openSDSaveFile result in r0
   movs r2, r0, lsr #0x1f                               ; get the most significant bit of the result - 0 if success, 1 if error
   eor r2, r2, #0x1                                     ; flip the bit so true if success, false if error
-  mov r0, sp                                           ; FIX
+  mov r0, sp 
   bl FSFILE_Close                                      ; FSFILE_Close is located at 0x1390b0
   ldmia sp!, { r0 }                                    ; pop extra stack location
   mov r0, r2                                           ; set r0 to result
