@@ -94,6 +94,7 @@ def ASM_FakeCardId(card_id: str) -> bytes:
     id_bytes[2:3] + b'\x00\xa0\xe3',  # mov  r0, <id_bytes[2]>
     b'\x02'       + b'\x00\xc6\xe5',  # strb r0, [r6,#2]
     id_bytes[3:4] + b'\x00\xa0\xe3',  # mov  r0, <id_bytes[3]>
+    b'\x03'       + b'\x00\xc6\xe5',  # strb r0, [r6,#3]
   ))
 
 
@@ -153,6 +154,7 @@ def ASM_CheckSDSaveFile(config: Config, addr: int, open_addr: int) -> bytes:
     b"\x01\x00\xbd\xe8",  # ldmia sp!, { r0 }       ; pop extra stack location
     b"\x02\x00\xa0\xe1",  # mov   r0, r2            ; set r0 to result
     b"\x06\x80\xbd\xe8",  # ldmia sp!, { r1, r2, pc }
+    b'\x00\x00\x00\x00',  # nop
   ))
 
 
@@ -186,7 +188,7 @@ def ASM_OpenSDSaveFile(config: Config, addr: int, save_path: str) -> bytes:
     PadASMString(b''),
 
     # savePath: .string <path_bytes>
-    path_bytes,
+    PadASMString(path_bytes),
   ))
 
 
