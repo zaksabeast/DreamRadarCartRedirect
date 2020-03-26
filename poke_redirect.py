@@ -143,17 +143,17 @@ def ASM_WriteSDSaveFile(config: Config, addr: int, open_addr: int) -> bytes:
 
 def ASM_CheckSDSaveFile(config: Config, addr: int, open_addr: int) -> bytes:
   return b''.join((
-    b"\x06\x40\x2d\xe9",  # stmdb sp!, { r1, r2, lr }
-    b"\x01\x00\x2d\xe9",  # stmdb sp!, { r0 }       ; push extra stack location for file handle
-    b"\x0d\x10\xa0\xe1",  # mov   r1, sp            ; set r1 to sp to store file handle
+    b'\x06\x40\x2d\xe9',  # stmdb sp!, { r1, r2, lr }
+    b'\x01\x00\x2d\xe9',  # stmdb sp!, { r0 }       ; push extra stack location for file handle
+    b'\x0d\x10\xa0\xe1',  # mov   r1, sp            ; set r1 to sp to store file handle
     ASM_Branch(True, addr + 12, open_addr),         # bl OpenSDSaveFile
-    b"\xa0\x2f\xb0\xe1",  # movs  r2, r0, lsr #0x1f ; get the most significant bit of the result
-    b"\x01\x20\x22\xe2",  # eor   r2, r2, #0x1      ; flip the bit so true if success
-    b"\x0d\x00\xa0\xe1",  # mov   r0, sp            ; set r0 to file handle
+    b'\xa0\x2f\xb0\xe1',  # movs  r2, r0, lsr #0x1f ; get the most significant bit of the result
+    b'\x01\x20\x22\xe2',  # eor   r2, r2, #0x1      ; flip the bit so true if success
+    b'\x0d\x00\xa0\xe1',  # mov   r0, sp            ; set r0 to file handle
     ASM_Branch(True, addr + 28, config.fs_close),   # bl FSFILE_Close
-    b"\x01\x00\xbd\xe8",  # ldmia sp!, { r0 }       ; pop extra stack location
-    b"\x02\x00\xa0\xe1",  # mov   r0, r2            ; set r0 to result
-    b"\x06\x80\xbd\xe8",  # ldmia sp!, { r1, r2, pc }
+    b'\x01\x00\xbd\xe8',  # ldmia sp!, { r0 }       ; pop extra stack location
+    b'\x02\x00\xa0\xe1',  # mov   r0, r2            ; set r0 to result
+    b'\x06\x80\xbd\xe8',  # ldmia sp!, { r1, r2, pc }
     b'\x00\x00\x00\x00',  # nop
   ))
 
