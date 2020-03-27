@@ -101,8 +101,8 @@ def ASM_FakeCardId(card_id: str) -> bytes:
 def ASM_ReadSDSaveFile(config: Config, addr: int, open_addr: int) -> bytes:
   return b''.join((
     b'\x3f\x40\x2d\xe9',  # stmdb sp!, { r0-r5, lr }
-    b'\x03\x50\xa0\xe1',  # mov   r5, r3          ; set buffer pointer to r5
-    b'\x02\x40\xa0\xe1',  # mov   r4, r2          ; set read size to r4
+    b'\x03\x50\xa0\xe1',  # mov   r5, r3          ; set read size to r5
+    b'\x02\x40\xa0\xe1',  # mov   r4, r2          ; set buffer pointer to r4
     b'\x00\x30\xa0\xe3',  # mov   r3, #0x0        ; set offsetHigh as 0 to r3
     b'\x01\x20\xa0\xe1',  # mov   r2, r1          ; set offsetLow to r2
     b'\x0d\x10\xa0\xe1',  # mov   r1, sp          ; set r1 to sp to store file handle
