@@ -28,7 +28,7 @@ OPEN_FUNCTION_OFFSET = 0x3c8
 
 class Config(collections.namedtuple('AbstractConfig', (
     'code_size', 'check_card', 'card_id', 'read_save', 'write_save',
-    'fs_handle', 'fs_open', 'fs_read', 'fs_write', 'fs_close'))):
+    'fs_handle', 'fs_open', 'fs_read', 'fs_write', 'fs_close', 'flip_write'))):
   """Configuration for the Pokemon binary.
 
   Attributes:
@@ -48,6 +48,8 @@ class Config(collections.namedtuple('AbstractConfig', (
     fs_read: The address of FSFILE_Read.
     fs_write: The address of FSFILE_Write.
     fs_close: The address of FSFILE_Close.
+    flip_write: Indicates that the order of the 3rd and 4th arguments of the
+      write function are flipped.
   """
 
 # Config for Dream Radar
@@ -56,17 +58,35 @@ POKEAR_CONFIG = Config(
   # limit    = 0x0bf000
   check_card = 0x137da4,
   card_id    = 0x13dcf4,
-  read_save  = 0x13dadc,
+  read_save  = 0x13dac8,
   write_save = 0x188788,
   fs_handle  = 0x1dba80,
   fs_open    = 0x124ea8,
   fs_read    = 0x139058,
   fs_write   = 0x1390dc,
   fs_close   = 0x1390b0,
+  flip_write = True,
+)
+
+# Config for Poke Transporter
+SALMON_CONFIG = Config(
+  code_size  = 0x18d1ac,
+  # limit    = 0x18e000
+  check_card = None,
+  card_id    = 0x21aa0c,
+  read_save  = 0x21a7e0,
+  write_save = 0x21ab50,
+  fs_handle  = 0x311f80,
+  fs_open    = 0x1df448,
+  fs_read    = 0x15930c,
+  fs_write   = 0x159390,
+  fs_close   = 0x159364,
+  flip_write = False,
 )
 
 CONFIGS = collections.OrderedDict(
   pokear=POKEAR_CONFIG,
+  salmon=SALMON_CONFIG,
 )
 
 
@@ -109,7 +129,7 @@ def ASM_ReadSDSaveFile(config: Config, addr: int, open_addr: int) -> bytes:
     ASM_Branch(True, addr + 24, open_addr),       # bl OpenSDSaveFile
     b'\x01\x00\xa0\xe1',  # mov   r0, r1          ; set r0 to file handle
     b'\x30\x00\x2d\xe9',  # stmdb sp!, { r4,r5 }  ; push variables
-    b'\x0c\x10\x8d\xe2',  # add   r1, sp, #0xc    ; set r1 to throwaway location for bytes read
+    b'\x08\x10\x8d\xe2',  # add   r1, sp, #0x8    ; set r1 to throwaway location for bytes read
     ASM_Branch(True, addr + 40, config.fs_read),  # bl FSFILE_Read
     b'\x30\x00\xbd\xe8',  # ldmia sp!, { r4,r5 }  ; pop variables
     b'\x0d\x00\xa0\xe1',  # mov   r0, sp          ; set r0 to file handle
@@ -120,20 +140,25 @@ def ASM_ReadSDSaveFile(config: Config, addr: int, open_addr: int) -> bytes:
 
 
 def ASM_WriteSDSaveFile(config: Config, addr: int, open_addr: int) -> bytes:
+  args = list(range(4))
+  if config.flip_write:
+    args[2], args[3] = args[3], args[2]
   return b''.join((
     b'\x7f\x40\x2d\xe9',  # stmdb sp!, { r0-r6, lr }
     b'\x00\x60\xa0\xe3',  # mov   r6, #0x0        ; set flags 0 to r6
-    b'\x02\x50\xa0\xe1',  # mov   r5, r2          ; set write size to r5
-    b'\x03\x40\xa0\xe1',  # mov   r4, r3          ; set buffer pointer to r4
+    args[3].to_bytes(1, byteorder=CODE_BYTEORDER)
+      + b'\x50\xa0\xe1',  # mov   r5, r<args[3]>  ; set write size to r5
+    args[2].to_bytes(1, byteorder=CODE_BYTEORDER)
+      + b'\x40\xa0\xe1',  # mov   r4, r<args[2]>  ; set buffer pointer to r4
     b'\x00\x30\xa0\xe3',  # mov   r3, #0x0        ; set offsetHigh as 0 to r3
     b'\x01\x20\xa0\xe1',  # mov   r2, r1          ; set offsetLow to r2
     b'\x0d\x10\xa0\xe1',  # mov   r1, sp          ; set r1 to sp to store file handle
     ASM_Branch(True, addr + 28, open_addr),       # bl OpenSDSaveFile
     b'\x01\x00\xa0\xe1',  # mov   r0, r1          ; set r0 to file handle
-    b'\xf0\x00\x2d\xe9',  # stmdb sp!, { r4-r7 }  ; push variables
+    b'\x70\x00\x2d\xe9',  # stmdb sp!, { r4-r6 }  ; push variables
     b'\x0c\x10\x8d\xe2',  # add   r1, sp, #0xc    ; set r1 to throwaway location for bytes written
     ASM_Branch(True, addr + 44, config.fs_write), # bl FSFILE_Write
-    b'\xf0\x00\xbd\xe8',  # ldmia sp!, { r4-r7 }  ; pop variables
+    b'\x70\x00\xbd\xe8',  # ldmia sp!, { r4-r6 }  ; pop variables
     b'\x0d\x00\xa0\xe1',  # mov   r0, sp          ; set r0 to file handle
     ASM_Branch(True, addr + 56, config.fs_close), # bl FSFILE_Close
     b'\x7f\x80\xbd\xe8',  # ldmia sp!, { r0-r6, pc }
@@ -250,4 +275,3 @@ if __name__ == '__main__':
   parser.add_argument('save_path', help='the path to the save file on the SD card')
   args = parser.parse_args()
   sys.stdout.buffer.write(CreatePatch(CONFIGS[args.config], args.card_id, args.save_path))
-
