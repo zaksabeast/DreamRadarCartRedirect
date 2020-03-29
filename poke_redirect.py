@@ -270,8 +270,9 @@ if __name__ == '__main__':
   parser = argparse.ArgumentParser(
       description='Create an IPS patch to redirect card access to a file on SD')
   parser.add_argument(
-      'config', choices=CONFIGS.keys(), help='which binary configuration to use')
-  parser.add_argument('card_id', help='the 4 character id of the card')
-  parser.add_argument('save_path', help='the path to the save file on the SD card')
+      'config', choices=CONFIGS.keys(),
+      help='which binary configuration to use; "pokear" = Dream Radar, "salmon" = Poke Transporter')
+  parser.add_argument('card_id', help='the 4 character id of the card; e.g. "IRDO"')
+  parser.add_argument('save_path', help='the path to the save file on the SD card; e.g. "/nds/saves/white2.sav"')
   args = parser.parse_args()
   sys.stdout.buffer.write(CreatePatch(CONFIGS[args.config], args.card_id, args.save_path))
