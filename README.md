@@ -18,6 +18,8 @@ This requires having [Luma3DS](https://github.com/AuroraWright/Luma3DS) on your 
    - For Pokemon Transporter use `/luma/titles/00040000000C9C00/code.ips`
 3. Ensure you have a save file at `/roms/nds/saves/white2.sav` or `/roms/nds/saves/black2.sav`
    - If you're using [TWiLightMenu](https://github.com/DS-Homebrew/TWiLightMenu), this means having a game at `/roms/nds/white2.nds` or `/roms/nds/black2.nds`
+4. Ensure that game patching is enabled
+   - You can enable it in the Luma3DS configuration menu by holding the Select button before starting the console.
 
 ## Building the patches for custom save paths
 
