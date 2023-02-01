@@ -8,7 +8,7 @@ read_save_from_sd:
   bl open_sd_save
   mov r0, r1                       ; set r0 to file handle pointer
   stmdb sp!, { r4, r5 }            ; push variables
-  add r1, sp, #0x8                 ; set r1 to throwaway location for bytes read
+  mov r1, sp                       ; set r1 to throwaway location for bytes read
   bl FSFILE_ReadFile               ; FSFILE_Read is located at 0x139058
   ldmia sp!, { r4, r5 }            ; pop variables
   mov r0, sp                       ; set r0 to file handle
@@ -26,7 +26,7 @@ write_save_to_sd:
   bl open_sd_save
   mov r0, r1                       ; set r0 to file handle
   stmdb sp!, { r4-r6 }             ; push variables
-  add r1, sp, #0xc                 ; set r1 to throwaway location for bytes written
+  mov r1, sp                       ; set r1 to throwaway location for bytes written
   bl FSFILE_WriteFile
   ldmia sp!, { r4-r6 }             ; pop variables
   mov r0, sp                       ; set r0 to file handle
