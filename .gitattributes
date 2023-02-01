@@ -1,3 +1,0 @@
-# Sources
-*.s     text diff=assembly
-*.py    linguist-vendored
