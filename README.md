@@ -14,8 +14,9 @@ This requires having [Luma3DS](https://github.com/AuroraWright/Luma3DS) on your 
    - The zip will have two folders in it: `radar` and `transporter`
    - Each folder will have patches for each supported game
 2. Copy the ips patch you want to your sd card
-   - For Pokemon Dream Radar use `/luma/titles/00040000000AE100/code.ips`
-   - For Pokemon Transporter use `/luma/titles/00040000000C9C00/code.ips`
+   - Pokemon Transporter: `/luma/titles/00040000000C9C00/code.ips`
+   - Japanese Pokemon Dream Radar: `/luma/titles/0004000000073200/code.ips`
+   - All Regions Pokemon Dream Radar: `/luma/titles/00040000000AE100/code.ips`
 3. Ensure you have a save file at `/roms/nds/saves/white2.sav`, `/roms/nds/saves/black2.sav`, `/roms/nds/saves/black.sav`, or `/roms/nds/saves/white.sav`
    - If you're using [TWiLightMenu](https://github.com/DS-Homebrew/TWiLightMenu), this means having a game at `/roms/nds/white2.nds`, `/roms/nds/black2.nds`, `/roms/nds/black.nds`, or `/roms/nds/white.nds`
    - Note: Black and White are only supported by Transporter

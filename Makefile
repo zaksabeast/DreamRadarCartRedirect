@@ -1,6 +1,6 @@
-.PHONY: transporter_black transporter_white transporter_black2 transporter_white2 radar_black2 radar_white2 clean
+.PHONY: transporter_black transporter_white transporter_black2 transporter_white2 radar_black2 radar_white2 jpn_radar_black2 jpn_radar_white2 clean
 
-all: transporter_black transporter_white transporter_black2 transporter_white2 radar_black2 radar_white2
+all: transporter_black transporter_white transporter_black2 transporter_white2 radar_black2 radar_white2 jpn_radar_black2 jpn_radar_white2
 
 transporter_black:
 	@armips transporter.s -strequ SD_SAVE_PATH "/roms/nds/saves/black.sav" -strequ GAME_ID "IRBO"
@@ -37,6 +37,18 @@ radar_white2:
 	@mkdir -p out/radar
 	@flips -c radar.bin radar_patched.bin out/radar/radar_white2.ips
 	@rm radar_patched.bin
+
+jpn_radar_black2:
+	@armips jpn_radar.s -strequ SD_SAVE_PATH "/roms/nds/saves/black2.sav" -strequ GAME_ID "IREO"
+	@mkdir -p out/jpn_radar
+	@flips -c jpn_radar.bin jpn_radar_patched.bin out/jpn_radar/jpn_radar_black2.ips
+	@rm jpn_radar_patched.bin
+
+jpn_radar_white2:
+	@armips jpn_radar.s -strequ SD_SAVE_PATH "/roms/nds/saves/white2.sav" -strequ GAME_ID "IRDO"
+	@mkdir -p out/jpn_radar
+	@flips -c jpn_radar.bin jpn_radar_patched.bin out/jpn_radar/jpn_radar_white2.ips
+	@rm jpn_radar_patched.bin
 
 clean:
 	@rm -rf *_patched.bin out
