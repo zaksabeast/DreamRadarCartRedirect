@@ -27,10 +27,10 @@ This requires having [Luma3DS](https://github.com/AuroraWright/Luma3DS) on your 
 
 ### Requirements
 
-- [ ] The `.code` file of the Dream Radar or Pokémon Transporter application (see [below](#dump) how to dump it)
-- [ ] A copy of this repository (or at least of the respective `.s` file of the title you want to modify)
-- [ ] A copy of [armips](https://github.com/Kingcom/armips)
-- [ ] A copy of [flips (Floating IPS)](https://github.com/Alcaro/Flips)
+- The `.code` file of the Dream Radar or Pokémon Transporter application (see [below](#dump) how to dump it)
+- A copy of this repository (or at least of the respective `.s` file of the title you want to modify)
+- A copy of [armips](https://github.com/Kingcom/armips)
+- A copy of [flips (Floating IPS)](https://github.com/Alcaro/Flips)
 
 <details>
    <summary>
@@ -41,8 +41,8 @@ This requires having [Luma3DS](https://github.com/AuroraWright/Luma3DS) on your 
 
 #### Requirements
 
-- [ ] The respective title (Dream Radar or Transporter) installed on your 3DS
-- [ ] [GodMode9](https://github.com/d0k3/GodMode9) on your 3DS (should be installed if you followed [this guide](https://3ds.hacks.guide/))
+- The respective title (Dream Radar or Transporter) installed on your 3DS
+- [GodMode9](https://github.com/d0k3/GodMode9) on your 3DS (should be installed if you followed [this guide](https://3ds.hacks.guide/))
 
 <h4>Dumping</h4>
 
@@ -58,30 +58,28 @@ This requires having [Luma3DS](https://github.com/AuroraWright/Luma3DS) on your 
    - Japanese Pokémon Dream Radar: `0004000000073200`
    - All Regions Pokémon Dream Radar: `00040000000AE100`
 
-4. Select `Open title folder` and press <kbd>A</kbd>
-5. Select the `.tmd` file and press <kbd>A</kbd>
-6. Select `TMD file options...` and press <kbd>A</kbd>
-7. Select `Mount CXI/NDS to drive` and press <kbd>A</kbd>
+4. Select `Open title folder`
+5. Select the `.tmd` file
+6. Select `TMD file options...`
+7. Select `Mount CXI/NDS to drive`
 8. Press <kbd>A</kbd> to enter the mount point
-9. Select the `exefs` folder and press <kbd>A</kbd>
-10. Select the `.code` file and press <kbd>A</kbd>
-11. Select `Copy to 0:/gm9/out` and press <kbd>A</kbd>
+9. Select the `exefs` folder
+10. Select the `.code` file
+11. Select `Copy to 0:/gm9/out`
 12. Press <kbd>A</kbd> to continue
 
 Success! The dumped `.code` is now stored on your SD card at `SD:/gm9/out`. Copy this file over to the repository folder on your computer using your preferred method, e.g. with [FTPD](https://github.com/mtheall/ftpd) or by plugging in your SD into your computer. Remember that on Unix and Unix-like environments files with filenames starting with a `.` are treated as hidden files, so make sure your preferred file browser shows them when trying to transfer the file.
 </details>
 
-### Building the patches yourself
-
 <details>
    <summary>
    <h3>
-      Dream Radar (All regions)
+      Building the patch for Dream Radar (All regions)
    </h3>
    </summary>
 
    1. Rename your obtained `.code` file to `radar.bin`
-   2. Open a shell in the folder containing your recently renamed `.bin`and the rest of the above resources. If you are using installed versions of the aforementioned tools, omit the preceding `./`. __Windows users__: replace all the binary names in the following with `.\$NAME.exe`, so `./armips` becomes `.\armips.exe` etc.
+   2. Open a shell in the folder containing the renamed `.bin` file and other resources. If you're using installed versions of the tools, omit the preceding `./`.
    3. Execute the following command, replacing `$GAME_ID` with the ID of your game (check [the table](#version-table)) and `$SAVE_PATH` with the location of your save file on your SD card, so if using TWiLightMenu with a Pokémon Black 2 ROM stored at `/roms/nds/black2.nds`, use `IREO` and `/roms/nds/saves/black2.sav`.
 
       ```shell
@@ -100,12 +98,12 @@ Success! The dumped `.code` is now stored on your SD card at `SD:/gm9/out`. Copy
 <details>
    <summary>
    <h3>
-      Dream Radar (Japan)
+      Building the patch for Dream Radar (Japan)
    </h3>
    </summary>
 
    1. Rename your obtained `.code` file to `radar.bin`
-   2. Open a shell in the folder containing your recently renamed `.bin`and the rest of the above resources. If you are using installed versions of the aforementioned tools, omit the preceding `./`. __Windows users__: replace all the binary names in the following with `.\$NAME.exe`, so `./armips` becomes `.\armips.exe` etc.
+   2. Open a shell in the folder containing the renamed `.bin` file and other resources. If you're using installed versions of the tools, omit the preceding `./`.
    3. Execute the following command, replacing `$GAME_ID` with the ID of your game (check [the table](#version-table)) and `$SAVE_PATH` with the location of your save file on your SD card, so if using TWiLightMenu with a Pokémon Black 2 ROM stored at `/roms/nds/black2.nds`, use `IREO` and `/roms/nds/saves/black2.sav`.
 
       ```shell
@@ -124,12 +122,12 @@ Success! The dumped `.code` is now stored on your SD card at `SD:/gm9/out`. Copy
 <details>
    <summary>
    <h3>
-      Transporter
+      Building the patch for Transporter
    </h3>
    </summary>
 
    1. Rename your obtained `.code` file to `transporter.bin`
-   2. Open a shell in the folder containing your recently renamed `.bin`and the rest of the above resources. If you are using installed versions of the aforementioned tools, omit the preceding `./`. __Windows users__: replace all the binary names in the following with `.\$NAME.exe`, so `./armips` becomes `.\armips.exe` etc.
+   2. Open a shell in the folder containing the renamed `.bin` file and other resources. If you're using installed versions of the tools, omit the preceding `./`.
    3. Execute the following command, replacing `$GAME_ID` with the ID of your game (check [the table](#version-table)) and `$SAVE_PATH` with the location of your save file on your SD card, so if using TWiLightMenu with a Pokémon Black 2 ROM stored at `/roms/nds/black2.nds`, use `IREO` and `/roms/nds/saves/black2.sav`.
 
       ```shell
