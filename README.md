@@ -13,10 +13,14 @@ This requires having [Luma3DS](https://github.com/AuroraWright/Luma3DS) on your 
 1. Download and unzip the zip file from the latest releases
    - The zip will have two folders in it: `radar` and `transporter`
    - Each folder will have patches for each supported game
-2. Copy the IPS patch you want to your SD card
-   - Pokémon Transporter: `/luma/titles/00040000000C9C00/code.ips`
-   - Japanese Pokémon Dream Radar: `/luma/titles/0004000000073200/code.ips`
-   - All Regions Pokémon Dream Radar: `/luma/titles/00040000000AE100/code.ips`
+2. Copy and rename the IPS Patch
+   - Create the game patch folder on your SD card for the game you want to play:
+     - **All Regions Dream Radar**: `/luma/titles/00040000000AE100/`
+     - **Japanese Dream Radar**: `/luma/titles/0004000000073200/`
+     - **Transporter**: `/luma/titles/00040000000C9C00/`
+   - Copy the `.ips` file you need (e.g. `radar/white2.ips`) to the folder you created
+   - Rename the IPS file you copied to `code.ips`
+   - For example, if you're playing Dream Radar, you should now have a file at `/luma/titles/00040000000AE100/code.ips`
 3. Ensure you have a save file at `/roms/nds/saves/white2.sav`, `/roms/nds/saves/black2.sav`, `/roms/nds/saves/black.sav`, or `/roms/nds/saves/white.sav`
    - If you're using [TWiLightMenu](https://github.com/DS-Homebrew/TWiLightMenu), this means having a game at `/roms/nds/white2.nds`, `/roms/nds/black2.nds`, `/roms/nds/black.nds`, or `/roms/nds/white.nds`
    - Note: Black and White are only supported by Transporter
@@ -50,8 +54,9 @@ This requires having [Luma3DS](https://github.com/AuroraWright/Luma3DS) on your 
 2. Open the title manager:
 
    - Navigate to `[Y:] TITLE MANAGER` and press <kbd>A</kbd>
-   <br>or<br>
+     <br>or<br>
    - Navigate to `[A:] SYSNAND SD` and press <kbd>R + A</kbd> for drive options and select `Open title manager` on the bottom screen by using the D-pad and then press <kbd>A</kbd>
+
 3. Find the entry of the title you want to dump and press <kbd>A</kbd>, it should have the same folder name as above:
 
    - Pokémon Transporter: `00040000000C9C00`
@@ -69,6 +74,7 @@ This requires having [Luma3DS](https://github.com/AuroraWright/Luma3DS) on your 
 12. Press <kbd>A</kbd> to continue
 
 Success! The dumped `.code` is now stored on your SD card at `SD:/gm9/out`. Copy this file over to the repository folder on your computer using your preferred method, e.g. with [FTPD](https://github.com/mtheall/ftpd) or by plugging in your SD into your computer. Remember that on Unix and Unix-like environments files with filenames starting with a `.` are treated as hidden files, so make sure your preferred file browser shows them when trying to transfer the file.
+
 </details>
 
 <details>
@@ -78,21 +84,22 @@ Success! The dumped `.code` is now stored on your SD card at `SD:/gm9/out`. Copy
    </h3>
    </summary>
 
-   1. Rename your obtained `.code` file to `radar.bin`
-   2. Open a shell in the folder containing the renamed `.bin` file and other resources. If you're using installed versions of the tools, omit the preceding `./`.
-   3. Execute the following command, replacing `$GAME_ID` with the ID of your game (check [the table](#version-table)) and `$SAVE_PATH` with the location of your save file on your SD card, so if using TWiLightMenu with a Pokémon Black 2 ROM stored at `/roms/nds/black2.nds`, use `IREO` and `/roms/nds/saves/black2.sav`.
+1.  Rename your obtained `.code` file to `radar.bin`
+2.  Open a shell in the folder containing the renamed `.bin` file and other resources. If you're using installed versions of the tools, omit the preceding `./`.
+3.  Execute the following command, replacing `$GAME_ID` with the ID of your game (check [the table](#version-table)) and `$SAVE_PATH` with the location of your save file on your SD card, so if using TWiLightMenu with a Pokémon Black 2 ROM stored at `/roms/nds/black2.nds`, use `IREO` and `/roms/nds/saves/black2.sav`.
 
-      ```shell
-      ./armips radar.s -strequ SD_SAVE_PATH "$SAVE_PATH" -strequ GAME_ID "$GAME_ID"
-      ```
+    ```shell
+    ./armips radar.s -strequ SD_SAVE_PATH "$SAVE_PATH" -strequ GAME_ID "$GAME_ID"
+    ```
 
-   4. Execute
+4.  Execute
 
-      ```shell
-      ./flips -c radar.bin radar_patched.bin code.ips
-      ```
+    ```shell
+    ./flips -c radar.bin radar_patched.bin code.ips
+    ```
 
-   Congratulations! You now have an IPS patch for your save path and game. It is safe to delete the `radar_patched.bin`, since it is specific to the save path and game. Follow the instructions above under [Usage](#usage) to continue, keeping in mind that your save path will differ.
+Congratulations! You now have an IPS patch for your save path and game. It is safe to delete the `radar_patched.bin`, since it is specific to the save path and game. Follow the instructions above under [Usage](#usage) to continue, keeping in mind that your save path will differ.
+
 </details>
 
 <details>
@@ -102,21 +109,22 @@ Success! The dumped `.code` is now stored on your SD card at `SD:/gm9/out`. Copy
    </h3>
    </summary>
 
-   1. Rename your obtained `.code` file to `radar.bin`
-   2. Open a shell in the folder containing the renamed `.bin` file and other resources. If you're using installed versions of the tools, omit the preceding `./`.
-   3. Execute the following command, replacing `$GAME_ID` with the ID of your game (check [the table](#version-table)) and `$SAVE_PATH` with the location of your save file on your SD card, so if using TWiLightMenu with a Pokémon Black 2 ROM stored at `/roms/nds/black2.nds`, use `IREO` and `/roms/nds/saves/black2.sav`.
+1.  Rename your obtained `.code` file to `radar.bin`
+2.  Open a shell in the folder containing the renamed `.bin` file and other resources. If you're using installed versions of the tools, omit the preceding `./`.
+3.  Execute the following command, replacing `$GAME_ID` with the ID of your game (check [the table](#version-table)) and `$SAVE_PATH` with the location of your save file on your SD card, so if using TWiLightMenu with a Pokémon Black 2 ROM stored at `/roms/nds/black2.nds`, use `IREO` and `/roms/nds/saves/black2.sav`.
 
-      ```shell
-      ./armips jpn_radar.s -strequ SD_SAVE_PATH "$SAVE_PATH" -strequ GAME_ID "$GAME_ID"
-      ```
+    ```shell
+    ./armips jpn_radar.s -strequ SD_SAVE_PATH "$SAVE_PATH" -strequ GAME_ID "$GAME_ID"
+    ```
 
-   4. Execute
+4.  Execute
 
-      ```shell
-      ./flips -c jpn_radar.bin jpn_radar_patched.bin code.ips
-      ```
+    ```shell
+    ./flips -c jpn_radar.bin jpn_radar_patched.bin code.ips
+    ```
 
-   Congratulations! You now have an IPS patch for your save path and game. It is safe to delete the `jpn_radar_patched.bin`, since it is specific to the save path and game. Follow the instructions above under [Usage](#usage) to continue, keeping in mind that your save path will differ.
+Congratulations! You now have an IPS patch for your save path and game. It is safe to delete the `jpn_radar_patched.bin`, since it is specific to the save path and game. Follow the instructions above under [Usage](#usage) to continue, keeping in mind that your save path will differ.
+
 </details>
 
 <details>
@@ -126,28 +134,29 @@ Success! The dumped `.code` is now stored on your SD card at `SD:/gm9/out`. Copy
    </h3>
    </summary>
 
-   1. Rename your obtained `.code` file to `transporter.bin`
-   2. Open a shell in the folder containing the renamed `.bin` file and other resources. If you're using installed versions of the tools, omit the preceding `./`.
-   3. Execute the following command, replacing `$GAME_ID` with the ID of your game (check [the table](#version-table)) and `$SAVE_PATH` with the location of your save file on your SD card, so if using TWiLightMenu with a Pokémon Black 2 ROM stored at `/roms/nds/black2.nds`, use `IREO` and `/roms/nds/saves/black2.sav`.
+1.  Rename your obtained `.code` file to `transporter.bin`
+2.  Open a shell in the folder containing the renamed `.bin` file and other resources. If you're using installed versions of the tools, omit the preceding `./`.
+3.  Execute the following command, replacing `$GAME_ID` with the ID of your game (check [the table](#version-table)) and `$SAVE_PATH` with the location of your save file on your SD card, so if using TWiLightMenu with a Pokémon Black 2 ROM stored at `/roms/nds/black2.nds`, use `IREO` and `/roms/nds/saves/black2.sav`.
 
-      ```shell
-      ./armips transporter.s -strequ SD_SAVE_PATH "$SAVE_PATH" -strequ GAME_ID "$GAME_ID"
-      ```
+    ```shell
+    ./armips transporter.s -strequ SD_SAVE_PATH "$SAVE_PATH" -strequ GAME_ID "$GAME_ID"
+    ```
 
-   4. Execute
+4.  Execute
 
-      ```shell
-      ./flips -c transporter.bin transporter_patched.bin code.ips
-      ```
+    ```shell
+    ./flips -c transporter.bin transporter_patched.bin code.ips
+    ```
 
-   Congratulations! You now have an IPS patch for your save path and game. It is safe to delete the `transporter_patched.bin`, since it is specific to the save path and game. Follow the instructions above under [Usage](#usage) to continue, keeping in mind that your save path will differ.
+Congratulations! You now have an IPS patch for your save path and game. It is safe to delete the `transporter_patched.bin`, since it is specific to the save path and game. Follow the instructions above under [Usage](#usage) to continue, keeping in mind that your save path will differ.
+
 </details>
 
 ### Version table
 
-   | Game     | ID    |
-   |   ----   |  ---  |
-   | Black    | IRBO  |
-   | Black 2  | IREO  |
-   | White    | IRAO  |
-   | White 2  | IRDO  |
+| Game    | ID   |
+| ------- | ---- |
+| Black   | IRBO |
+| Black 2 | IREO |
+| White   | IRAO |
+| White 2 | IRDO |
