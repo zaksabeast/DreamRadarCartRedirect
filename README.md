@@ -6,26 +6,12 @@ Dream Radar is a game which allows getting level 5 legendary Pokémon in dream b
 
 This patch redirects saving from an NDS cartridge to a file on the SD card. Using this patch allows dream radar and transporter to use saves from [TWiLightMenu](https://github.com/DS-Homebrew/TWiLightMenu) and [nds-bootstrap](https://github.com/ahezard/nds-bootstrap).
 
+
 ## Usage
 
-This requires having [Luma3DS](https://github.com/AuroraWright/Luma3DS) on your 3DS.
-
-1. Download and unzip the zip file from the latest releases
-   - The zip will have two folders in it: `radar` and `transporter`
-   - Each folder will have patches for each supported game
-2. Copy and rename the IPS Patch
-   - Create the game patch folder on your SD card for the game you want to play:
-     - **All Regions Dream Radar**: `/luma/titles/00040000000AE100/`
-     - **Japanese Dream Radar**: `/luma/titles/0004000000073200/`
-     - **Transporter**: `/luma/titles/00040000000C9C00/`
-   - Copy the `.ips` file you need (e.g. `radar/white2.ips`) to the folder you created
-   - Rename the IPS file you copied to `code.ips`
-   - For example, if you're playing Dream Radar, you should now have a file at `/luma/titles/00040000000AE100/code.ips`
-3. Ensure you have a save file at `/roms/nds/saves/white2.sav`, `/roms/nds/saves/black2.sav`, `/roms/nds/saves/black.sav`, or `/roms/nds/saves/white.sav`
-   - If you're using [TWiLightMenu](https://github.com/DS-Homebrew/TWiLightMenu), this means having a game at `/roms/nds/white2.nds`, `/roms/nds/black2.nds`, `/roms/nds/black.nds`, or `/roms/nds/white.nds`
-   - Note: Black and White are only supported by Transporter
-4. Ensure that game patching is enabled
-   - You can enable it in the Luma3DS configuration menu by holding the Select button before starting the console.
+For instructions on how to use the patches, check out these links:
+- [Dream Radar No-Cart Patch Guide](https://www.pokemonrng.com/dream-radar-patches)
+- [Transporter Redirect Patch Guide](https://www.pokemonrng.com/transporter-patches)
 
 ## Building the patches for custom save paths
 
